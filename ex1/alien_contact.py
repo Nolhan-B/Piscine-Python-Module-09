@@ -87,7 +87,6 @@ def main() -> None:
             witness_count=1,
         )
     except ValidationError as e:
-        print("Expected validation error:")
         for error in e.errors():
             print(error["msg"])
 
