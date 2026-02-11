@@ -106,7 +106,6 @@ def main() -> None:
     for e in mission.crew:
         print(f"- {e.name} ({e.rank} - {e.specialization})")
     print("\n=========================================")
-    print("Expected validation error:")
     try:
         mission = SpaceMission(
             mission_id="M2024_MARS",
@@ -118,6 +117,7 @@ def main() -> None:
             crew=[john, alice],
         )
     except ValidationError as e:
+        print("Expected validation error:")
         for error in e.errors():
             print(error["msg"])
 
