@@ -45,8 +45,8 @@ class SpaceMission(BaseModel):
             raise ValueError('Must have at least one Commander or Captain')
 
         if self.duration_days > 365:
-            experienced = sum(e.years_experience >= 1825 for e in self.crew)
-            if experienced >= len(self.crew) * 0.5:
+            experienced = sum(e.years_experience >= 5 for e in self.crew)
+            if experienced / len(self.crew) < 0.5:
                 raise ValueError('Long missions need 50% experienced crew')
 
         for e in self.crew:
@@ -74,7 +74,7 @@ def main() -> None:
         rank=RankType.lieutenant,
         age="39",
         specialization="Navigation",
-        years_experience="12",
+        years_experience="2",
         is_active=True
     )
     alice = CrewMember(
@@ -104,7 +104,7 @@ def main() -> None:
     print(f"Crew size: {len(mission.crew)}")
     print("Crew Members:")
     for e in mission.crew:
-        print(f"- {e.name} ({e.rank} - {e.specialization})")
+        print(f"- {e.name} ({e.rank.value} - {e.specialization})")
     print("\n=========================================")
     try:
         mission = SpaceMission(
